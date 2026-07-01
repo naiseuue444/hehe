@@ -28,7 +28,7 @@
     />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Courgette&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -49,6 +49,39 @@
     <!-- some extensions -->
   </head>
   <body>
+
+    <!-- ══════════════ LOCK SCREEN ══════════════ -->
+    <div class="lockscreen" id="lockscreen">
+      <div class="lockscreen__inner">
+        <p class="lockscreen__until" id="ls-until">Locked until July 2, 12:00 AM</p>
+
+        <div class="lockscreen__clock">
+          <div class="lockscreen__unit">
+            <span class="lockscreen__num" id="ls-days">00</span>
+            <span class="lockscreen__label">Days</span>
+          </div>
+          <span class="lockscreen__sep">:</span>
+          <div class="lockscreen__unit">
+            <span class="lockscreen__num" id="ls-hours">00</span>
+            <span class="lockscreen__label">Hours</span>
+          </div>
+          <span class="lockscreen__sep">:</span>
+          <div class="lockscreen__unit">
+            <span class="lockscreen__num" id="ls-mins">00</span>
+            <span class="lockscreen__label">Minutes</span>
+          </div>
+          <span class="lockscreen__sep">:</span>
+          <div class="lockscreen__unit">
+            <span class="lockscreen__num" id="ls-secs">00</span>
+            <span class="lockscreen__label">Seconds</span>
+          </div>
+        </div>
+
+        <p class="lockscreen__wait" id="ls-wait">Please wait…</p>
+      </div>
+    </div>
+    <!-- ══════════════════════════════════════════ -->
+
     <!-- Sfx calling -->
 
     <audio class="blast-aud">
@@ -103,31 +136,14 @@
         alt="balloon-right"
         class="balloon balloon--right"
       />
-      <div class="frame">
-        <div class="img-back">
-          <div class="bd-pic"></div>
-          <img class="cap" src="./resources/img/bday-cap.svg" alt="" />
-          <img class="confetti" src="./resources/img/confetti.svg" alt="" />
-          <img class="cake" src="./resources/img/cake.svg" alt="" />
-          <div class="velas">
-            <div class="fuego"></div>
-            <div class="fuego"></div>
-            <div class="fuego"></div>
-            <div class="fuego"></div>
-            <div class="fuego"></div>
-          </div>
-        </div>
-        <div class="HBD-text">
-          <p class="HBD">{{^HBD_MSG}}</p>
-          <p class="nickname">{{^NICKNAME}}</p>
-        </div>
-      </div>
+      <!-- Card frame removed: message is the final screen -->
 
       <div class="frame frame2">
+        <h1 class="scroll-header">Happy Birthday My Qamar 😁</h1>
         <div class="scroll">
           <div class="text">{{^SCROLL_MSG}}</div>
+        </div>
       </div>
-    </div>
 
     <div class="flash"></div>
 

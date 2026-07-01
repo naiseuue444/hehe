@@ -38,4 +38,4 @@ Following is the list of all the environment variables that are used in this pro
 
 ---
 
-<div align="center">Made with 💖 by Anshuman Mahato</div>
+<div align="center">Made with 💖 by naise</div>

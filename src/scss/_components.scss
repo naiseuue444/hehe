@@ -354,3 +354,257 @@
     transform: translateY(0);
   }
 }
+
+/* =============================================
+   MANUAL SCROLL MESSAGE PAGE
+   ============================================= */
+
+/* frame2 sits in the same grid cell as frame1 — balloons naturally show above in row1 */
+.frame2 {
+  display: none;
+  opacity: 0;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
+}
+
+/* Glowing birthday header */
+.scroll-header {
+  font-family: 'Courgette', cursive;
+  font-size: 2.8rem;
+  color: #fff;
+  text-shadow:
+    0 0 12px rgba(255, 120, 180, 0.9),
+    0 0 30px rgba(255, 80, 160, 0.55),
+    0 0 55px rgba(200, 60, 140, 0.25);
+  text-align: center;
+  margin: 0;
+  padding: 1.6rem 1.5rem 1rem;
+  flex-shrink: 0;
+  width: 100%;
+  animation: float-header 3.5s ease-in-out infinite alternate;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+
+  @media (max-width: 800px) {
+    font-size: 3.2rem;
+    padding: 2rem 1.5rem 1.2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 2.4rem;
+    padding: 1.4rem 1rem 0.8rem;
+  }
+}
+
+@keyframes float-header {
+  0%   { transform: translateY(0);    text-shadow: 0 0 12px rgba(255,120,180,0.9), 0 0 30px rgba(255,80,160,0.55); }
+  100% { transform: translateY(-5px); text-shadow: 0 0 22px rgba(255,160,210,1),   0 0 50px rgba(255,100,180,0.75); }
+}
+
+/* Thin glowing divider below header */
+.scroll-header::after {
+  content: '';
+  display: block;
+  margin: 0.8rem auto 0;
+  width: 55%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255,120,180,0.75), transparent);
+  border-radius: 2px;
+}
+
+/* Scrollable message area — fills remaining frame height, user scrolls manually */
+.frame2 .scroll {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 0 !important;        /* flex-grow handles real height */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  /* Custom slim scrollbar */
+  &::-webkit-scrollbar        { width: 4px; }
+  &::-webkit-scrollbar-track  { background: transparent; }
+  &::-webkit-scrollbar-thumb  { background: rgba(255,120,180,0.35); border-radius: 10px; }
+  &::-webkit-scrollbar-thumb:hover { background: rgba(255,120,180,0.65); }
+}
+
+/* Text column — natural flow, no absolute positioning */
+.frame2 .text {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: 86% !important;
+  max-width: 680px !important;
+  margin: 0.6rem auto 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  text-align: left !important;
+}
+
+/* Each paragraph */
+.frame2 .text p {
+  margin: 0 0 1.8rem !important;
+  font-size: 1.7rem !important;
+  line-height: 1.85 !important;
+  color: rgba(240, 228, 255, 0.9) !important;
+  font-family: Arial, sans-serif !important;
+  opacity: 0;
+  transition: opacity 0.55s ease !important;
+  padding-left: 1.2rem !important;
+  border-left: 2px solid rgba(255,120,180,0.35) !important;
+
+  @media (max-width: 800px) {
+    font-size: 1.95rem !important;
+    margin: 0 0 2.2rem !important;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.6rem !important;
+    line-height: 1.75 !important;
+    margin: 0 0 1.6rem !important;
+    padding-left: 0.9rem !important;
+  }
+}
+
+/* Highlight emotionally strong lines */
+.frame2 .text p:has(🫶),
+.frame2 .text p:has(Ameen),
+.frame2 .text p:has(Alhamdulillah),
+.frame2 .text p:has(Happy Birthday) {
+  color: rgba(255, 205, 235, 1) !important;
+  font-size: 1.85rem !important;
+  border-left-color: rgba(255,150,200,0.65) !important;
+
+  @media (max-width: 800px) {
+    font-size: 2.1rem !important;
+  }
+}
+
+/* =============================================
+   LOCK SCREEN
+   ============================================= */
+
+.lockscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ls-appear 0.6s ease both;
+}
+
+@keyframes ls-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lockscreen--fade {
+  animation: ls-fade 1s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes ls-fade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.lockscreen__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.8rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.lockscreen__until {
+  font-family: Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin: 0;
+  transition: all 0.5s ease;
+
+  @media (max-width: 500px) { font-size: 1.3rem; }
+}
+
+.lockscreen__clock {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+
+  @media (max-width: 500px) { gap: 0.6rem; }
+}
+
+.lockscreen__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.lockscreen__num {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  min-width: 2ch;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+
+  @media (max-width: 800px) { font-size: 6rem; }
+  @media (max-width: 500px) { font-size: 4.2rem; }
+}
+
+.lockscreen__label {
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+
+  @media (max-width: 500px) { font-size: 0.9rem; }
+}
+
+.lockscreen__sep {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 1;
+  padding-top: 0.05em;
+  user-select: none;
+
+  @media (max-width: 800px) { font-size: 5.5rem; }
+  @media (max-width: 500px) { font-size: 3.8rem; }
+}
+
+.lockscreen__wait {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  transition: all 0.6s ease;
+
+  @media (max-width: 500px) { font-size: 1.2rem; }
+}
+
+/* Celebration state */
+.lockscreen__wait--reveal {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+}

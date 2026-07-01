@@ -118,9 +118,9 @@ export const animate = function () {
       }, 4000);
     } else if (button.classList.contains("gift")) {
       /* 
-              when the gift is pressed, the gift scene vanishes and the white div fades slowly giving a sense 
-              of explosion. After that, the message frame appears and moves up until the message completes. Then,
-              the message frame fades away and the card appears.
+              when the gift is pressed, the gift scene vanishes. 
+              The message frame (frame2) is the final screen — no card after.
+              Header appears immediately, then message text fades in after 3 seconds.
           */
 
       haunt.pause();
@@ -131,47 +131,27 @@ export const animate = function () {
       music.loop = true;
       music.play();
 
-      if (!process.env.SCROLL_MSG) {
-        frames[0].style.display = "flex";
-        setTimeout(() => {
-          frames[0].classList.add("appear");
-          frames[0].style.opacity = "1";
-        }, 1500);
-        return;
-      }
-
-      //This value is stored in the --readTime css variable of root element and is calculated dynamically at build time.
-      const readTime =
-        parseInt(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            "--readTime"
-          )
-        ) + 5;
-
-      frames[1].style.display = "flex";
+      // frame2 is now the only frame — always show it
+      const msgFrame = document.querySelector(".frame2");
+      msgFrame.style.display = "flex";
 
       setTimeout(() => {
-        frames[1].classList.add("appear");
-        frames[1].style.opacity = "1";
-        msg.classList.add("move-up");
-      }, 1500);
-
-      setTimeout(() => {
-        msg.style.transform = "translateY(-100%)";
+        msgFrame.classList.add("appear");
+        msgFrame.style.opacity = "1";
         flash.style.display = "none";
-      }, 5000);
 
-      setTimeout(() => {
-        msgWindow.classList.add("fade-in");
-        msgWindow.style.opacity = "0";
-      }, readTime * 1000);
+        // Wait 3 seconds after frame appears, then fade in paragraphs with stagger
+        const pElements = Array.from(document.querySelectorAll(".text p"));
+        setTimeout(() => {
+          pElements.forEach((p, idx) => {
+            setTimeout(() => {
+              p.style.opacity = "1";
+            }, idx * 120);
+          });
+        }, 3000);
 
-      setTimeout(() => {
-        frames[1].style.display = "none";
-        frames[0].style.display = "flex";
-        frames[0].classList.add("appear");
-        frames[0].style.opacity = "1";
-      }, (readTime + 3) * 1000);
+      }, 1500);
     }
   });
 };
+
